@@ -15,6 +15,12 @@ def encriptar(cadena, desplazamiento):
             letra = LETRAS[pos]
         salida += letra
     return salida
+def desencriptar(cadena, desplazamiento):
+    """
+    Desencriptar una cadena con desplazamiento inverso.
+    """
+    return(encriptar(cadena,-desplazamiento))
+
 def encriptar_archivo(entrada, desplazamiento):
     """
     Encripta el archivo de entrada aplicando 
@@ -28,3 +34,17 @@ def encriptar_archivo(entrada, desplazamiento):
         with open(salida, "w", encoding="utf8") as f_out:
             for linea in f_in:
                 f_out.write(encriptar(linea, desplazamiento))
+
+def desencriptar_archivo(entrada, desplazamiento):
+    """
+    Desencripta el archivo de entrada aplicando 
+    el desplazamiento inverso.
+    El archivo de salida tiene el mismo nombre que el
+    de entrada más la cadena: -DESCRIPTO.
+    """
+    archivo = Path(entrada)
+    salida = str(archivo.with_name(archivo.stem + "-DESCRIPTO"+ archivo.suffix))
+    with open(archivo, "r", encoding="utf8") as f_in:
+        with open(salida, "w", encoding="utf8") as f_out:
+            for linea in f_in:
+                f_out.write(desencriptar(linea, desplazamiento))
